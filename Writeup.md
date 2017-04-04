@@ -23,7 +23,9 @@ The goals / steps of this project are the following:
 [warp_lane]: ./images/test2-03-warp.jpg "Birds-eye view image"
 [detect_lane]: ./images/test2-04-detect.jpg "Detected lane markings image"
 [overlay_lane]: ./images/test2-05-overlay.jpg "Overlay image"
-
+[challenge_thresh]: ./images/challenge001-02-thresh.jpg "Thresholded challenge image"
+[challenge_warp]: ./images/challenge001-03-warp.jpg "Warped challenge image"
+[challenge_detect]: ./images/challenge001-04-detect.jpg "Lane detection in challenge image"
 ---
 
 I have provided an [HTML](./Advanced-Lane-Finding.html) file with all of the cells run, for convenience.
@@ -170,9 +172,9 @@ Additionally, I feel I could improve the lane pixel detection algorithm. I attem
 
 Part of the issue my pipeline had with the challenge video is the shadow from the median barrier. I was just looking through the pictures, specifically these three:
 
-![Thresholded challenge image][./images/challenge001-02-thresh.jpg]
-![Warped challenge image][./images/challenge001-03-warp.jpg]
-![Lane detection in challenge image][./images/challenge001-02-detect.jpg]
+![alt text][challenge_thresh]
+![alt text][challenge_warp]
+![alt text][challenge_detect]
 
 One can see that the shadow from the median barrier made it into the thresholded image. From the last picture, it is clear that it is causing havoc to my lane detection algorithm.
 
@@ -188,3 +190,5 @@ Currently, my experiments in masking had a hardcoded mask defined. One thought I
 3. Histogram the lower 1/3 or 1/2 to determine the most likely x positions of the left and right lane at the bottom of the image
 4. Convert these x positions back to the perspective view
 5. Create a dynamic mask that uses these x positions, with a little buffer, as the edges for the trapezoidal mask
+
+
