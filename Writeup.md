@@ -76,7 +76,7 @@ My thresholding functions can be found in section *3. Thresholding functions*. I
 
 I converted the image to HLS and used the saturation channel in my thresholding function. Additionally, I used the magnitude and direction gradients together.
 
-I then applied a mask to the thresholded image in an attempt to remove extra noise from the binary image.
+I tried applied a mask to the thresholded image in an attempt to remove extra noise from the binary image, but found that the results were no better off. More on this in the next section.
 
 Here is the result of my thresholding functions on the undistorted image.
 
@@ -102,6 +102,8 @@ Here is an example of a thresholded image before and after being warped to birds
 
 ![alt text][thresh_lane]
 ![alt text][warp_lane]
+
+I think my masking attempts did not help because of the way I performed the birds-eye view warp. In the process of warping the image, a lot of the noise in the thresholded image was automatically cut out of the image.
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
