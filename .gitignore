@@ -1,2 +1,7 @@
 .ipynb_checkpoints
 examples*
+output_images
+challenge
+.*.swp
+Sandbox.ipynb
+*challenge_output.mp4
