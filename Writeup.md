@@ -83,7 +83,7 @@ Here is the result of my thresholding functions on the undistorted image.
 ![alt text][undist_lane]
 ![alt text][thresh_lane]
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes a function called `transform_birdseye`, which appears in section *4. Perspective Transformation*. The `transform_birdseye` function takes as inputs an image (`img`), and calls `gen_transform_matrices` to get the hard coded transformation matrices.
 
@@ -105,7 +105,7 @@ Here is an example of a thresholded image before and after being warped to birds
 
 I think my masking attempts did not help because of the way I performed the birds-eye view warp. In the process of warping the image, a lot of the noise in the thresholded image was automatically cut out of the image.
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Lane line detection functions can be found under section *5. Detect Lane Markings*. I tried the two different sliding window approaches discussed in the lessons, but found the convolution approach always gave me inferior results on a noisy input.
 
@@ -126,7 +126,7 @@ In the following picture, I have overlaid the sliding windows in green and the c
 
 ![alt text][detect_lane]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
 I calculated the radius of the curvature of the lane and the position of the car in the lane in section *6. Calculate Curvature and Position*.
 
@@ -134,7 +134,7 @@ The function **calc_lane_curvature** calculates the radius of the lane curvature
 
 The function **calc_lane_center_offset** calculates the offset of the vehicle with respect to the center of the lane. This is accomplished by taking the width of the lane in pixels at the bottom of the image and seeing how well centered it is in the image. As the camera is centered on the car, the lane should be centered on the image when the car is centered in the lane.
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 Having calculated the polynomials for the left and right lane markers, I then use the inverse of the warp matrix to create a polygon representing the lane in the perspective view. This is done in the function `transform_lane_to_perspective`, found in section *7. Warp Lane Markings to Perspective View*.
 
@@ -146,9 +146,9 @@ I then overlay the information about the curvature of the lane and the offset of
 
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 I then combined all functions together into one single `find_lane` function, which is found in section titled `Pipeline`.
 
@@ -156,9 +156,9 @@ Here's a [link to my video result](./project_video.mp4)
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Like all of my projects this term, so far, I experimented a great deal with this one. I wish I had more time to experiment. I had a lot of fun discovering how changes could affect the quality of the output.
 
