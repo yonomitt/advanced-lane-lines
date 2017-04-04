@@ -152,7 +152,7 @@ I then overlay the information about the curvature of the lane and the offset of
 
 I then combined all functions together into one single `find_lane` function, which is found in section titled `Pipeline`.
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_output.mp4)
 
 ---
 
