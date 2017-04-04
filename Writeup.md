@@ -26,6 +26,7 @@ The goals / steps of this project are the following:
 [challenge_thresh]: ./images/challenge001-02-thresh.jpg "Thresholded challenge image"
 [challenge_warp]: ./images/challenge001-03-warp.jpg "Warped challenge image"
 [challenge_detect]: ./images/challenge001-04-detect.jpg "Lane detection in challenge image"
+
 ---
 
 I have provided an [HTML](./Advanced-Lane-Finding.html) file with all of the cells run, for convenience.
@@ -191,4 +192,3 @@ Currently, my experiments in masking had a hardcoded mask defined. One thought I
 4. Convert these x positions back to the perspective view
 5. Create a dynamic mask that uses these x positions, with a little buffer, as the edges for the trapezoidal mask
 
-
