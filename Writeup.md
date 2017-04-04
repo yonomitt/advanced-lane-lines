@@ -23,6 +23,9 @@ The goals / steps of this project are the following:
 [warp_lane]: ./images/test2-03-warp.jpg "Birds-eye view image"
 [detect_lane]: ./images/test2-04-detect.jpg "Detected lane markings image"
 [overlay_lane]: ./images/test2-05-overlay.jpg "Overlay image"
+[challenge_thresh]: ./images/challenge001-02-thresh.jpg "Thresholded challenge image"
+[challenge_warp]: ./images/challenge001-03-warp.jpg "Warped challenge image"
+[challenge_detect]: ./images/challenge001-04-detect.jpg "Lane detection in challenge image"
 
 ---
 
@@ -67,8 +70,8 @@ I wrote a function for each step in the pipeline:
 
 The first step is to correct the distortion to the image caused by the camera. Taking the camera matrix and distortion coefficients calculated during the camera calibration step, I could use OpenCV's `undistort` function to take care of undistortion.
 
-![alt text][original_lane]
-![alt text][undistort_lane]
+![alt text][orig_lane]
+![alt text][undist_lane]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
@@ -76,14 +79,14 @@ My thresholding functions can be found in section *3. Thresholding functions*. I
 
 I converted the image to HLS and used the saturation channel in my thresholding function. Additionally, I used the magnitude and direction gradients together.
 
-I then applied a mask to the thresholded image in an attempt to remove extra noise from the binary image.
+I tried applied a mask to the thresholded image in an attempt to remove extra noise from the binary image, but found that the results were no better off. More on this in the next section.
 
 Here is the result of my thresholding functions on the undistorted image.
 
-![alt text][undistort_lane]
+![alt text][undist_lane]
 ![alt text][thresh_lane]
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes a function called `transform_birdseye`, which appears in section *4. Perspective Transformation*. The `transform_birdseye` function takes as inputs an image (`img`), and calls `gen_transform_matrices` to get the hard coded transformation matrices.
 
@@ -103,7 +106,9 @@ Here is an example of a thresholded image before and after being warped to birds
 ![alt text][thresh_lane]
 ![alt text][warp_lane]
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+I think my masking attempts did not help because of the way I performed the birds-eye view warp. In the process of warping the image, a lot of the noise in the thresholded image was automatically cut out of the image.
+
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Lane line detection functions can be found under section *5. Detect Lane Markings*. I tried the two different sliding window approaches discussed in the lessons, but found the convolution approach always gave me inferior results on a noisy input.
 
@@ -124,7 +129,7 @@ In the following picture, I have overlaid the sliding windows in green and the c
 
 ![alt text][detect_lane]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
 I calculated the radius of the curvature of the lane and the position of the car in the lane in section *6. Calculate Curvature and Position*.
 
@@ -132,7 +137,7 @@ The function **calc_lane_curvature** calculates the radius of the lane curvature
 
 The function **calc_lane_center_offset** calculates the offset of the vehicle with respect to the center of the lane. This is accomplished by taking the width of the lane in pixels at the bottom of the image and seeing how well centered it is in the image. As the camera is centered on the car, the lane should be centered on the image when the car is centered in the lane.
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 Having calculated the polynomials for the left and right lane markers, I then use the inverse of the warp matrix to create a polygon representing the lane in the perspective view. This is done in the function `transform_lane_to_perspective`, found in section *7. Warp Lane Markings to Perspective View*.
 
@@ -144,19 +149,19 @@ I then overlay the information about the curvature of the lane and the offset of
 
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 I then combined all functions together into one single `find_lane` function, which is found in section titled `Pipeline`.
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_output.mp4)
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Like all of my projects this term, so far, I experimented a great deal with this one. I wish I had more time to experiment. I had a lot of fun discovering how changes could affect the quality of the output.
 
@@ -168,9 +173,9 @@ Additionally, I feel I could improve the lane pixel detection algorithm. I attem
 
 Part of the issue my pipeline had with the challenge video is the shadow from the median barrier. I was just looking through the pictures, specifically these three:
 
-![Thresholded challenge image][./images/challenge001-02-thresh.jpg]
-![Warped challenge image][./images/challenge001-03-warp.jpg]
-![Lane detection in challenge image][./images/challenge001-02-detect.jpg]
+![alt text][challenge_thresh]
+![alt text][challenge_warp]
+![alt text][challenge_detect]
 
 One can see that the shadow from the median barrier made it into the thresholded image. From the last picture, it is clear that it is causing havoc to my lane detection algorithm.
 
@@ -186,3 +191,4 @@ Currently, my experiments in masking had a hardcoded mask defined. One thought I
 3. Histogram the lower 1/3 or 1/2 to determine the most likely x positions of the left and right lane at the bottom of the image
 4. Convert these x positions back to the perspective view
 5. Create a dynamic mask that uses these x positions, with a little buffer, as the edges for the trapezoidal mask
+
