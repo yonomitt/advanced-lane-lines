@@ -67,8 +67,8 @@ I wrote a function for each step in the pipeline:
 
 The first step is to correct the distortion to the image caused by the camera. Taking the camera matrix and distortion coefficients calculated during the camera calibration step, I could use OpenCV's `undistort` function to take care of undistortion.
 
-![alt text][original_lane]
-![alt text][undistort_lane]
+![alt text][orig_lane]
+![alt text][undist_lane]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
@@ -80,7 +80,7 @@ I then applied a mask to the thresholded image in an attempt to remove extra noi
 
 Here is the result of my thresholding functions on the undistorted image.
 
-![alt text][undistort_lane]
+![alt text][undist_lane]
 ![alt text][thresh_lane]
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
